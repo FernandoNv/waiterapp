@@ -3,7 +3,13 @@ package com.example.waiterapp.ItemPedido;
 import com.example.waiterapp.Item.Item;
 import com.example.waiterapp.Pedido.Pedido;
 
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+
+@Entity
 public class ItemPedido {
+
+    @EmbeddedId
     private ItemPedidoPK id = new ItemPedidoPK();
     private Integer quantidade;
     private Double preco;

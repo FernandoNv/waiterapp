@@ -3,10 +3,20 @@ package com.example.waiterapp.ItemPedido;
 import com.example.waiterapp.Item.Item;
 import com.example.waiterapp.Pedido.Pedido;
 
+import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class ItemPedidoPK {
+@Embeddable
+public class ItemPedidoPK implements Serializable {
+
+    @ManyToOne
+    @JoinColumn(name = "id_item")
     private Item item;
+    @ManyToOne
+    @JoinColumn(name = "id_pedido")
     private Pedido pedido;
 
     public Item getItem() {

@@ -1,6 +1,7 @@
 package com.example.waiterapp.Cardapio;
 
 import com.example.waiterapp.Item.Item;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,15 +14,19 @@ public class Cardapio {
     @Id()
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false, updatable = false)
     private LocalDateTime dataCriacao;
+    @Column(nullable = false)
     private String titulo;
+    @Column(length = 2000)
     private String descricao;
 
-    @ManyToMany
+    @JsonIgnore
+    @ManyToMany()
     @JoinTable(
             name = "CARDAPIO_ITEM",
-            joinColumns = @JoinColumn(name = "cardapio_id"),
-            inverseJoinColumns = @JoinColumn(name = "item_id")
+            joinColumns = @JoinColumn(name = "fk_cardapio"),
+            inverseJoinColumns = @JoinColumn(name = "fk_item")
     )
     private List<Item> items = new ArrayList<>();
 

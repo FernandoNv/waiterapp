@@ -5,27 +5,44 @@ import com.example.waiterapp.Garcom.Garcom;
 import com.example.waiterapp.ItemPedido.ItemPedido;
 import com.example.waiterapp.Pagamento.Pagamento;
 import com.example.waiterapp.enums.Estado;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-
+@Entity
 public class Pedido {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, updatable = false)
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataCriacao;
+
     private Estado estado;
     private Double precoTotal;
     private Integer notaAtendimento;
     private Integer notaPedido;
     private String opcoesExtras;
 
+    @OneToMany(mappedBy = "id.pedido")
     private Set<ItemPedido> items = new HashSet<>();
-    private Cliente cliente;
-    private Garcom garcom;
-    private Pagamento pagamento;
 
+    @ManyToOne
+    private Cliente cliente;
+
+    @ManyToOne
+    private Garcom garcom;
+
+    @OneToOne(
+            cascade = CascadeType.ALL,
+            mappedBy = "pedido"
+    )
+    private Pagamento pagamento;
 
     public Pedido() {
     }
@@ -102,6 +119,10 @@ public class Pedido {
 
     public void setPrecoTotal(Double precoTotal) {
         this.precoTotal = precoTotal;
+    }
+
+    public void setPrecoTotal() {
+        this.precoTotal = this.items.stream().map(ItemPedido::getPreco).reduce(0D, Double::sum);
     }
 
     public Integer getNotaAtendimento() {

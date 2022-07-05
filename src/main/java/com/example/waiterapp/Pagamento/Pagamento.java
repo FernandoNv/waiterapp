@@ -1,14 +1,26 @@
 package com.example.waiterapp.Pagamento;
 
+import com.example.waiterapp.Pedido.Pedido;
 import com.example.waiterapp.enums.Estado;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Pagamento {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Estado estadoPagamento;
+
+    @Column(nullable = false, updatable = false)
     private LocalDateTime dataPagamento;
+
+    @OneToOne
+    @JoinColumn(name = "id_pedido")
+    private Pedido pedido;
 
     public Pagamento() {
     }

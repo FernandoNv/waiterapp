@@ -1,25 +1,32 @@
 package com.example.waiterapp.Item;
 
 import com.example.waiterapp.Cardapio.Cardapio;
+import com.example.waiterapp.ItemPedido.ItemPedido;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String nome;
+    @Column(length = 2000)
     private String descricao;
+    @Column(nullable = false, updatable = false)
     private LocalDateTime dataCriacao;
+    @Column(nullable = false)
     private Double preco;
 
     @ManyToMany(mappedBy = "items")
     private List<Cardapio> cardapios = new ArrayList<>();
+
+    @OneToMany(mappedBy = "id.item")
+    private Set<ItemPedido> items = new HashSet<>();
 
     public Item() {
     }
@@ -30,6 +37,14 @@ public class Item {
         this.descricao = descricao;
         this.dataCriacao = dataCriacao;
         this.preco = preco;
+    }
+
+    public Set<ItemPedido> getItems() {
+        return items;
+    }
+
+    public void setItems(Set<ItemPedido> items) {
+        this.items = items;
     }
 
     public List<Cardapio> getCardapios() {

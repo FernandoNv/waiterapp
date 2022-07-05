@@ -2,18 +2,25 @@ package com.example.waiterapp.Cliente;
 
 import com.example.waiterapp.Pedido.Pedido;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
 public class Cliente {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String nome;
     private String email;
     private String cpf;
+    @Column(nullable = false, updatable = false)
     private LocalDateTime dataCriação;
 
+    @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos = new ArrayList<>();
 
     public Cliente() {

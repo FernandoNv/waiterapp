@@ -2,18 +2,28 @@ package com.example.waiterapp.Ingrediente;
 
 import com.example.waiterapp.Item.Prato.Prato;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
 public class Ingrediente {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String nome;
+    @Column(length = 2000)
     private String descricao;
+    @Column(nullable = false, updatable = false)
     private LocalDate dataCriacao;
+    @Column(nullable = false)
     private Float caloria;
 
+    @ManyToMany(mappedBy = "ingredientes")
+    @OrderBy("nome asc")
     private List<Prato> pratos = new ArrayList<>();
 
     public Ingrediente() {

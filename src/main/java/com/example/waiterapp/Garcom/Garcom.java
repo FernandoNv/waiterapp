@@ -2,17 +2,23 @@ package com.example.waiterapp.Garcom;
 
 import com.example.waiterapp.Pedido.Pedido;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
 public class Garcom {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
+    @Column(nullable = false, updatable = false)
     private LocalDateTime dataCriacao;
     private String cpf;
 
+    @OneToMany(mappedBy = "garcom")
     private List<Pedido> pedidos = new ArrayList<>();
 
     public Garcom() {
