@@ -1,43 +1,38 @@
-package com.example.waiterapp.Item;
+package com.example.waiterapp.Ingrediente;
 
-import com.example.waiterapp.Cardapio.Cardapio;
+import com.example.waiterapp.Item.Prato.Prato;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
-public class Item {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Ingrediente {
     private Long id;
     private String nome;
     private String descricao;
-    private LocalDateTime dataCriacao;
-    private Double preco;
+    private LocalDate dataCriacao;
+    private Float caloria;
 
-    @ManyToMany(mappedBy = "items")
-    private List<Cardapio> cardapios = new ArrayList<>();
+    private List<Prato> pratos = new ArrayList<>();
 
-    public Item() {
+    public Ingrediente() {
     }
 
-    public Item(Long id, String nome, String descricao, LocalDateTime dataCriacao, Double preco) {
+    public Ingrediente(Long id, String nome, String descricao, LocalDate dataCriacao, Float caloria) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.dataCriacao = dataCriacao;
-        this.preco = preco;
+        this.caloria = caloria;
     }
 
-    public List<Cardapio> getCardapios() {
-        return cardapios;
+    public List<Prato> getPratos() {
+        return pratos;
     }
 
-    public void setCardapios(List<Cardapio> cardapios) {
-        this.cardapios = cardapios;
+    public void setPratos(List<Prato> pratos) {
+        this.pratos = pratos;
     }
 
     public Long getId() {
@@ -64,28 +59,28 @@ public class Item {
         this.descricao = descricao;
     }
 
-    public LocalDateTime getDataCriacao() {
+    public LocalDate getDataCriacao() {
         return dataCriacao;
     }
 
-    public void setDataCriacao(LocalDateTime dataCriacao) {
+    public void setDataCriacao(LocalDate dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
 
-    public Double getPreco() {
-        return preco;
+    public Float getCaloria() {
+        return caloria;
     }
 
-    public void setPreco(Double preco) {
-        this.preco = preco;
+    public void setCaloria(Float caloria) {
+        this.caloria = caloria;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Item item = (Item) o;
-        return Objects.equals(id, item.id);
+        Ingrediente that = (Ingrediente) o;
+        return Objects.equals(id, that.id);
     }
 
     @Override
@@ -95,12 +90,12 @@ public class Item {
 
     @Override
     public String toString() {
-        return "Item{" +
+        return "Ingrediente{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", descricao='" + descricao + '\'' +
                 ", dataCriacao=" + dataCriacao +
-                ", preco=" + preco +
+                ", caloria=" + caloria +
                 '}';
     }
 }

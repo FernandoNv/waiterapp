@@ -1,6 +1,10 @@
 package com.example.waiterapp.Cliente;
 
-import java.time.LocalDate;
+import com.example.waiterapp.Pedido.Pedido;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Cliente {
@@ -8,17 +12,27 @@ public class Cliente {
     private String nome;
     private String email;
     private String cpf;
-    private LocalDate dataCriação;
+    private LocalDateTime dataCriação;
+
+    private List<Pedido> pedidos = new ArrayList<>();
 
     public Cliente() {
     }
 
-    public Cliente(Long id, String nome, String email, String cpf, LocalDate dataCriação) {
+    public Cliente(Long id, String nome, String email, String cpf, LocalDateTime dataCriação) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.cpf = cpf;
         this.dataCriação = dataCriação;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 
     public Long getId() {
@@ -53,11 +67,11 @@ public class Cliente {
         this.cpf = cpf;
     }
 
-    public LocalDate getDataCriação() {
+    public LocalDateTime getDataCriação() {
         return dataCriação;
     }
 
-    public void setDataCriação(LocalDate dataCriação) {
+    public void setDataCriação(LocalDateTime dataCriação) {
         this.dataCriação = dataCriação;
     }
 

@@ -1,21 +1,45 @@
 package com.example.waiterapp.Cardapio;
 
-import java.time.LocalDate;
+import com.example.waiterapp.Item.Item;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+@Entity
 public class Cardapio {
+    @Id()
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDate dataCriacao;
+    private LocalDateTime dataCriacao;
     private String titulo;
     private String descricao;
 
+    @ManyToMany
+    @JoinTable(
+            name = "CARDAPIO_ITEM",
+            joinColumns = @JoinColumn(name = "cardapio_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id")
+    )
+    private List<Item> items = new ArrayList<>();
+
     public Cardapio() {}
 
-    public Cardapio(Long id, LocalDate dataCriacao, String titulo, String descricao) {
+    public Cardapio(Long id, LocalDateTime dataCriacao, String titulo, String descricao) {
         this.id = id;
         this.dataCriacao = dataCriacao;
         this.titulo = titulo;
         this.descricao = descricao;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 
     public Long getId() {
@@ -26,11 +50,11 @@ public class Cardapio {
         this.id = id;
     }
 
-    public LocalDate getDataCriacao() {
+    public LocalDateTime getDataCriacao() {
         return dataCriacao;
     }
 
-    public void setDataCriacao(LocalDate dataCriacao) {
+    public void setDataCriacao(LocalDateTime dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
 
