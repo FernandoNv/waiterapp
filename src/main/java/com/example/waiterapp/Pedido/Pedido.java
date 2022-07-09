@@ -2,6 +2,7 @@ package com.example.waiterapp.Pedido;
 
 import com.example.waiterapp.Cliente.Cliente;
 import com.example.waiterapp.Garcom.Garcom;
+import com.example.waiterapp.Item.Item;
 import com.example.waiterapp.ItemPedido.ItemPedido;
 import com.example.waiterapp.Pagamento.Pagamento;
 import com.example.waiterapp.enums.Estado;
@@ -150,13 +151,11 @@ public class Pedido {
     }
 
     public void fecharPedido(){
-        //Todo: Implementar fechar pedido com o valor total dos items de pedido mais a gorjeta
-        System.out.println("Implementar fechar pedido");
+        this.estado = Estado.FECHADO;
     }
 
-    public void adicionarItemExtra(Integer idItemExtra){
-        //Todo: Implementar adicionar item extra;
-        System.out.println("Implementar adicionarItemExtra");
+    public void adicionarItemExtra(Item item){
+        new ItemPedido(this, item, 1, item.getPreco());
     }
 
     public void chamarGarcom(){
