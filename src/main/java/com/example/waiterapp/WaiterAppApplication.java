@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 
 @SpringBootApplication
@@ -125,11 +126,13 @@ public class WaiterAppApplication implements CommandLineRunner {
     }
 
     @GetMapping("/get_itens_cardapio")
-    public List<Item> get_cardapio(@RequestParam(value = "id_cardapio", defaultValue = "0") long id_cardapio) {
+    public List<Item> get_cardapio(@RequestParam() long id_cardapio) {
         Cardapio cardapio = null;
 
         try{
-            cardapio = cardapioRepository.getReferenceById(id_cardapio);
+            cardapio = cardapioRepository.findById(id_cardapio).orElse(null);
+            
+            System.out.println(cardapio);
 
         }catch (Exception e){
             System.out.println(e);
@@ -151,7 +154,7 @@ public class WaiterAppApplication implements CommandLineRunner {
         Pedido pedido = null;
 
         try{
-            pedido = PedidoRepository.getReferenceById(id_pedido);
+            pedido = PedidoRepository.findById(id_pedido).orElse(null);
 
         }catch (Exception e){
             System.out.println(e);
@@ -195,8 +198,8 @@ public class WaiterAppApplication implements CommandLineRunner {
         Item item;
 
         try{
-            pedido = PedidoRepository.getReferenceById(id_pedido);
-            item = itemRepository.getReferenceById(id_item_extra);
+            pedido = PedidoRepository.findById(id_pedido).orElse(null);
+            item = itemRepository.findById(id_item_extra).orElse(null);
 
         }catch (Exception e){
             System.out.println(e);
@@ -214,7 +217,7 @@ public class WaiterAppApplication implements CommandLineRunner {
         Pedido pedido;
 
         try{
-            pedido = PedidoRepository.getReferenceById(id_pedido);
+            pedido = PedidoRepository.findById(id_pedido).orElse(null);
 
         }catch (Exception e){
             System.out.println(e);
@@ -232,7 +235,7 @@ public class WaiterAppApplication implements CommandLineRunner {
         Pedido pedido;
 
         try{
-            pedido = PedidoRepository.getReferenceById(id_pedido);
+            pedido = PedidoRepository.findById(id_pedido).orElse(null);
 
         }catch (Exception e){
             System.out.println(e);
@@ -264,7 +267,7 @@ public class WaiterAppApplication implements CommandLineRunner {
         }
 
         try{
-            pedido = PedidoRepository.getReferenceById(id_pedido);
+            pedido = PedidoRepository.findById(id_pedido).orElse(null);
 
         }catch (Exception e){
             System.out.println(e);
@@ -281,7 +284,7 @@ public class WaiterAppApplication implements CommandLineRunner {
         Pedido pedido;
 
         try{
-            pedido = PedidoRepository.getReferenceById(id_pedido);
+            pedido = PedidoRepository.findById(id_pedido).orElse(null);
 
         }catch (Exception e){
             System.out.println(e);
@@ -297,7 +300,7 @@ public class WaiterAppApplication implements CommandLineRunner {
         Pedido pedido;
 
         try{
-            pedido = PedidoRepository.getReferenceById(id_pedido);
+            pedido = PedidoRepository.findById(id_pedido).orElse(null);
 
         }catch (Exception e){
             System.out.println(e);
@@ -314,7 +317,7 @@ public class WaiterAppApplication implements CommandLineRunner {
         Pedido pedido;
 
         try{
-            pedido = PedidoRepository.getReferenceById(id_pedido);
+            pedido = PedidoRepository.findById(id_pedido).orElse(null);
 
         }catch (Exception e){
             System.out.println(e);
@@ -330,7 +333,7 @@ public class WaiterAppApplication implements CommandLineRunner {
         Pedido pedido;
 
         try{
-            pedido = PedidoRepository.getReferenceById(id_pedido);
+            pedido = PedidoRepository.findById(id_pedido).orElse(null);
 
         }catch (Exception e){
             System.out.println(e);
@@ -347,7 +350,7 @@ public class WaiterAppApplication implements CommandLineRunner {
         Pedido pedido = null;
 
         try{
-            pedido = PedidoRepository.getReferenceById(id_pedido);
+            pedido = PedidoRepository.findById(id_pedido).orElse(null);
 
         }catch (Exception e){
             System.out.println(e);
@@ -381,7 +384,7 @@ public class WaiterAppApplication implements CommandLineRunner {
         }
 
         try{
-            pedido = PedidoRepository.getReferenceById(id_pedido);
+            pedido = PedidoRepository.findById(id_pedido).orElse(null);
 
         }catch (Exception e){
             System.out.println(e);
@@ -414,7 +417,7 @@ public class WaiterAppApplication implements CommandLineRunner {
         }
 
         try{
-            pedido = PedidoRepository.getReferenceById(id_pedido);
+            pedido = PedidoRepository.findById(id_pedido).orElse(null);
 
         }catch (Exception e){
             System.out.println(e);
@@ -431,7 +434,7 @@ public class WaiterAppApplication implements CommandLineRunner {
         Pedido pedido;
 
         try{
-            pedido = PedidoRepository.getReferenceById(id_pedido);
+            pedido = PedidoRepository.findById(id_pedido).orElse(null);
 
         }catch (Exception e){
             System.out.println(e);
