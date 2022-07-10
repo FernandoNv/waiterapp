@@ -31,6 +31,14 @@ public class Garcom {
         this.cpf = cpf;
     }
 
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
+
     public Long getId() {
         return id;
     }

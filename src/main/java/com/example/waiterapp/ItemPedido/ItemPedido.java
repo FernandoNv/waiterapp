@@ -2,6 +2,7 @@ package com.example.waiterapp.ItemPedido;
 
 import com.example.waiterapp.Item.Item;
 import com.example.waiterapp.Pedido.Pedido;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.Entity;
 @Entity
 public class ItemPedido {
 
+    @JsonIgnore
     @EmbeddedId
     private ItemPedidoPK id = new ItemPedidoPK();
     private Integer quantidade;
@@ -24,8 +26,23 @@ public class ItemPedido {
         this.preco = preco;
     }
 
+    public ItemPedido(Pedido pedido, Item item, Integer quantidade) {
+        id.setItem(item);
+        id.setPedido(pedido);
+        this.quantidade = quantidade;
+        this.preco = this.getPrecoItemPedido();
+    }
+
+    public void setPedido(Pedido pedido){
+        id.setPedido(pedido);
+    }
+
+    public void setItem(Item item){
+        id.setItem(item);
+    }
+
     public Double getPrecoItemPedido(){
-        return quantidade * preco;
+        return quantidade * id.getItem().getPreco();
     }
 
     public Pedido getPedido(){

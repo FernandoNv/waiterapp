@@ -39,10 +39,8 @@ public class Pedido {
     @ManyToOne
     private Garcom garcom;
 
-    @OneToOne(
-            cascade = CascadeType.ALL,
-            mappedBy = "pedido"
-    )
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pagamento_id", referencedColumnName = "id")
     private Pagamento pagamento;
 
     public Pedido() {

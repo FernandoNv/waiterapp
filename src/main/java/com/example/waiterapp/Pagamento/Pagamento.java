@@ -10,16 +10,17 @@ import java.util.Objects;
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Pagamento {
+    //erro no generation type utilizando esse tipo de herança. Substitui por table
+    //https://stackoverflow.com/questions/21047167/error-cannot-use-identity-column-key-generation-with-union-subclass-table
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
     private Estado estadoPagamento;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime dataPagamento;
 
-    @OneToOne
-    @JoinColumn(name = "id_pedido")
+    @OneToOne(mappedBy = "pagamento")
     private Pedido pedido;
 
     public Pagamento() {

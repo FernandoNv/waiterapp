@@ -4,6 +4,10 @@ import com.example.waiterapp.Cardapio.Cardapio;
 import com.example.waiterapp.Cardapio.CardapioRepository;
 import com.example.waiterapp.Cliente.Cliente;
 import com.example.waiterapp.Cliente.ClienteRepository;
+import com.example.waiterapp.Garcom.Garcom;
+import com.example.waiterapp.Garcom.GarcomRepository;
+import com.example.waiterapp.Ingrediente.Ingrediente;
+import com.example.waiterapp.Ingrediente.IngredienteRepository;
 import com.example.waiterapp.Item.Bebida.Bebida;
 import com.example.waiterapp.Item.Item;
 import com.example.waiterapp.Item.ItemRepository;
@@ -17,7 +21,6 @@ import com.example.waiterapp.Pagamento.PagamentoRepository;
 import com.example.waiterapp.Pedido.Pedido;
 import com.example.waiterapp.Pedido.PedidoRepository;
 import com.example.waiterapp.enums.Estado;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -29,7 +32,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 
 @SpringBootApplication
@@ -54,6 +56,24 @@ public class WaiterAppApplication implements CommandLineRunner {
     @Autowired
     private PagamentoRepository PagamentoRepository;
 
+    @Autowired
+    private IngredienteRepository ingredienteRepository;
+
+    @Autowired
+    private ClienteRepository clienteRepository;
+
+    @Autowired
+    private GarcomRepository garcomRepository;
+
+    @Autowired
+    private PedidoRepository pedidoRepository;
+
+    @Autowired
+    private ItemPedidoRepository itemPedidoRepository;
+
+    @Autowired
+    private PagamentoRepository pagamentoRepository;
+
     public static void main(String[] args) {
         SpringApplication.run(WaiterAppApplication.class, args);
     }
@@ -71,18 +91,6 @@ public class WaiterAppApplication implements CommandLineRunner {
         Item prato1 = new Prato(null, "Prato 1", "Descricao Prato 1", LocalDateTime.now(), 9.99D);
         Item prato2 = new Prato(null, "Prato 2", "Descricao Prato 2", LocalDateTime.now(), 199.99D);
 
-        //itemRepository.saveAll(Arrays.asList(bebida1, bebida2));
-
-//        cardapio1 = cardapioRepository.findById(1L).orElseThrow();
-//        cardapio2 = cardapioRepository.findById(2L).orElseThrow();
-//        bebida1 = itemRepository.findById(1L).orElseThrow();
-//        bebida2 = itemRepository.findById(2L).orElseThrow();
-
-        System.out.println(cardapio1);
-        System.out.println(cardapio2);
-        System.out.println(bebida1);
-        System.out.println(bebida2);
-
         cardapio1.getItems().addAll(Arrays.asList(bebida1, bebida2, prato1));
         cardapio2.getItems().addAll(Arrays.asList(bebida1, prato2));
 
@@ -92,9 +100,55 @@ public class WaiterAppApplication implements CommandLineRunner {
         prato1.getCardapios().add(cardapio1);
         prato2.getCardapios().add(cardapio2);
 
+        Ingrediente ingrediente1 = new Ingrediente(null, "Ingrediente 1", "", LocalDateTime.now(), 300.00f);
+        Ingrediente ingrediente2 = new Ingrediente(null, "Ingrediente 2", "", LocalDateTime.now(), 100.00f);
+        Ingrediente ingrediente3 = new Ingrediente(null, "Ingrediente 3", "", LocalDateTime.now(), 250.00f);
+
+        ingrediente1.getPratos().add((Prato) prato1);
+        ingrediente2.getPratos().add((Prato) prato1);
+        ingrediente3.getPratos().add((Prato) prato2);
+
+        ((Prato) prato1).getIngredientes().addAll(Arrays.asList(ingrediente1, ingrediente2));
+        ((Prato) prato2).getIngredientes().add(ingrediente3);
+
+        ingredienteRepository.saveAll(Arrays.asList(ingrediente1, ingrediente2, ingrediente3));
         itemRepository.saveAll(Arrays.asList(bebida1, bebida2, prato1, prato2));
         cardapioRepository.saveAll(Arrays.asList(cardapio1, cardapio2));
 
+        Cliente cliente1 = new Cliente(null, "Fernando", null, null, LocalDateTime.now());
+        Cliente cliente2 = new Cliente(null, "Juliana", null, null, LocalDateTime.now());
+
+        Garcom garcom1 = new Garcom(null, "Garcom 1", LocalDateTime.now(), null);
+        Garcom garcom2 = new Garcom(null, "Garcom 2", LocalDateTime.now(), null);
+
+        //public Pedido(Long id, LocalDateTime dataCriacao, Estado estado, Double precoTotal, Integer notaAtendimento, Integer notaPedido, String opcoesExtras) {
+        Pedido pedido1 = new Pedido(null, LocalDateTime.now(), Estado.EMPREPARACAO, null, 10, 10, null);
+        pedido1.setCliente(cliente1);
+        pedido1.setGarcom(garcom1);
+
+        garcom1.getPedidos().add(pedido1);
+        cliente1.getPedidos().add(pedido1);
+
+        Pagamento pagamento1 = new PagamentoComCartao(null, Estado.CONCLUIDO, LocalDateTime.now());
+        pedido1.setPagamento(pagamento1);
+
+        clienteRepository.saveAll(Arrays.asList(cliente1, cliente2));
+        garcomRepository.saveAll(Arrays.asList(garcom1, garcom2));
+        pedidoRepository.save(pedido1);
+        pagamentoRepository.save(pagamento1);
+
+        //ItemPedido(Pedido pedido, Item item, Integer quantidade, Double preco)
+        ItemPedido item1 = new ItemPedido(pedido1, bebida1, 2);
+        ItemPedido item2 = new ItemPedido(pedido1, prato1, 2);
+
+        pedido1.getItems().addAll(Arrays.asList(item1, item2));
+        pedido1.setPrecoTotal();
+        bebida1.getItems().add(item1);
+        prato1.getItems().add(item2);
+
+        itemPedidoRepository.saveAll(Arrays.asList(item1, item2));
+        itemRepository.saveAll(Arrays.asList(bebida1, bebida2, prato1, prato2));
+        pedidoRepository.save(pedido1);
     }
 
     @GetMapping("/create_pedido")

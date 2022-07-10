@@ -4,6 +4,7 @@ import com.example.waiterapp.Item.Prato.Prato;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -18,7 +19,7 @@ public class Ingrediente {
     @Column(length = 2000)
     private String descricao;
     @Column(nullable = false, updatable = false)
-    private LocalDate dataCriacao;
+    private LocalDateTime dataCriacao;
     @Column(nullable = false)
     private Float caloria;
 
@@ -29,7 +30,7 @@ public class Ingrediente {
     public Ingrediente() {
     }
 
-    public Ingrediente(Long id, String nome, String descricao, LocalDate dataCriacao, Float caloria) {
+    public Ingrediente(Long id, String nome, String descricao, LocalDateTime dataCriacao, Float caloria) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -69,11 +70,11 @@ public class Ingrediente {
         this.descricao = descricao;
     }
 
-    public LocalDate getDataCriacao() {
+    public LocalDateTime getDataCriacao() {
         return dataCriacao;
     }
 
-    public void setDataCriacao(LocalDate dataCriacao) {
+    public void setDataCriacao(LocalDateTime dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
 
