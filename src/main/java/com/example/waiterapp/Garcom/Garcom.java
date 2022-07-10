@@ -3,13 +3,14 @@ package com.example.waiterapp.Garcom;
 import com.example.waiterapp.Pedido.Pedido;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Garcom {
+public class Garcom implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

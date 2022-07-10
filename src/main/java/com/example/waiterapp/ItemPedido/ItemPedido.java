@@ -6,9 +6,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import java.io.Serializable;
 
 @Entity
-public class ItemPedido {
+public class ItemPedido implements Serializable {
 
     @JsonIgnore
     @EmbeddedId

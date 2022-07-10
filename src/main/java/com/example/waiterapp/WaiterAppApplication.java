@@ -174,11 +174,6 @@ public class WaiterAppApplication implements CommandLineRunner {
         return pedido.getId();
     }
 
-    @GetMapping("/get_cardapios")
-    public List<Cardapio> get_cardapios() {
-        return cardapioRepository.findAll();
-    }
-
     @GetMapping("/get_itens_cardapio")
     public List<Item> get_cardapio(@RequestParam() long id_cardapio) {
         Cardapio cardapio = null;

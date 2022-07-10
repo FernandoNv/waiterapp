@@ -1,16 +1,18 @@
 package com.example.waiterapp.Ingrediente;
 
 import com.example.waiterapp.Item.Prato.Prato;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Ingrediente {
+public class Ingrediente implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,6 +27,7 @@ public class Ingrediente {
 
     @ManyToMany(mappedBy = "ingredientes")
     @OrderBy("nome asc")
+    @JsonIgnore
     private List<Prato> pratos = new ArrayList<>();
 
     public Ingrediente() {

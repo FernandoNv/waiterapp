@@ -1,16 +1,19 @@
 package com.example.waiterapp.Cardapio;
 
 import com.example.waiterapp.Item.Item;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Cardapio {
+public class Cardapio implements Serializable {
     @Id()
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,8 +24,7 @@ public class Cardapio {
     @Column(length = 2000)
     private String descricao;
 
-    @JsonIgnore
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "CARDAPIO_ITEM",
             joinColumns = @JoinColumn(name = "fk_cardapio"),

@@ -2,14 +2,19 @@ package com.example.waiterapp.Item;
 
 import com.example.waiterapp.Cardapio.Cardapio;
 import com.example.waiterapp.ItemPedido.ItemPedido;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Item {
+public class Item implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,9 +27,11 @@ public class Item {
     @Column(nullable = false)
     private Double preco;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "items")
     private List<Cardapio> cardapios = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "id.item")
     private Set<ItemPedido> items = new HashSet<>();
 
