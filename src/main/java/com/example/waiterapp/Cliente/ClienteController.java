@@ -20,20 +20,20 @@ public class ClienteController {
         this.clienteService = clienteService;
     }
 
-    @GetMapping
+    @GetMapping(produces = "application/json")
     public ResponseEntity<List<Cliente>> listaClientes() {
         List<Cliente> clientes = clienteService.listaClientes();
         return ResponseEntity.ok().body(clientes);
     }
 
-    @GetMapping("/{idCliente}")
+    @GetMapping(value = "/{idCliente}", produces = "application/json")
     public ResponseEntity<Cliente> retornaClienteById(@PathVariable long idCliente){
         Cliente cliente = clienteService.retornaClienteById(idCliente);
 
         return ResponseEntity.ok().body(cliente);
     }
 
-    @PostMapping
+    @PostMapping(consumes = "application/json")
     public ResponseEntity<Void> insereCliente(@Valid @RequestBody ClienteDTO clienteDTO){
         Cliente cliente = clienteService.transformarDTO(clienteDTO);
         cliente = clienteService.insereCliente(cliente);
@@ -47,7 +47,7 @@ public class ClienteController {
         return ResponseEntity.created(uri).build();
     }
 
-    @PutMapping("/{idCliente}")
+    @PutMapping(value = "/{idCliente}", consumes = "application/json")
     public ResponseEntity<Void> atualizaCliente(@Valid @RequestBody ClienteDTO clienteDTO, @PathVariable Long idCliente){
         Cliente cliente = clienteService.transformarDTO(clienteDTO);
 
@@ -57,7 +57,7 @@ public class ClienteController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/{idCliente}")
+    @DeleteMapping(value = "/{idCliente}")
     public ResponseEntity<Void> deleteCliente(@PathVariable Long idCliente){
         clienteService.apagaCliente(idCliente);
 

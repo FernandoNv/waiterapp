@@ -20,20 +20,20 @@ public class PedidoController {
         this.pedidoService = pedidoService;
     }
 
-    @GetMapping
+    @GetMapping(produces = "application/json")
     public ResponseEntity<List<Pedido>> listaPedidos() {
         List<Pedido> pedidos = pedidoService.listaPedidos();
         return ResponseEntity.ok().body(pedidos);
     }
 
-    @GetMapping("/{idPedido}")
+    @GetMapping(value = "/{idPedido}", produces = "application/json")
     public ResponseEntity<Pedido> retornaPedidoById(@PathVariable Long idPedido){
         Pedido pedido = pedidoService.retornaPedidoById(idPedido);
 
         return ResponseEntity.ok().body(pedido);
     }
 
-    @PostMapping
+    @PostMapping(consumes = "application/json")
     public ResponseEntity<Void> inserePedido(@Valid @RequestBody PedidoDTO pedidoDTO){
         Pedido pedido = pedidoService.transformarDTO(pedidoDTO);
         pedido = pedidoService.inserePedido(pedido);
@@ -47,7 +47,7 @@ public class PedidoController {
         return ResponseEntity.created(uri).build();
     }
 
-    @PutMapping("/{idPedido}")
+    @PutMapping(value = "/{idPedido}", consumes = "application/json")
     public ResponseEntity<Void> atualizaPedido(@Valid @RequestBody PedidoDTO pedidoDTO, @PathVariable Long idCardapio){
         Pedido pedido = pedidoService.transformarDTO(pedidoDTO);
 
@@ -57,7 +57,7 @@ public class PedidoController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/{idPedido}")
+    @DeleteMapping(value = "/{idPedido}")
     public ResponseEntity<Void> deletePedido(@PathVariable Long idPedido){
         pedidoService.apagaPedido(idPedido);
 

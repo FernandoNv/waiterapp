@@ -2,6 +2,7 @@ package com.example.waiterapp.Garcom;
 
 import com.example.waiterapp.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -67,9 +68,12 @@ public class GarcomController {
 
     @DeleteMapping(value = "/{idGarcom}")
     public ResponseEntity<Void> deleteGarcom(@PathVariable Long idGarcom){
-        garcomService.apagaGarcom(idGarcom);
-
-        return ResponseEntity.noContent().build();
+        try{
+            garcomService.apagaGarcom(idGarcom);
+            return ResponseEntity.noContent().build();
+        }catch (DataIntegrityViolationException | ObjectNotFoundException e){
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }
