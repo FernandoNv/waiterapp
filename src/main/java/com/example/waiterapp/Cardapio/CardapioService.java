@@ -50,7 +50,7 @@ public class CardapioService {
         try{
             cardapioRepository.deleteById(idCardapio);
         }catch (DataIntegrityViolationException e) {
-            throw new DataIntegrityViolationException(("Não é possível excluir essa cardapio"));
+            throw new DataIntegrityViolationException(("Não é possível excluir esse cardapio"));
         }
     }
 }
