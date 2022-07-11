@@ -1,6 +1,7 @@
 package com.example.waiterapp.Cliente;
 
 import com.example.waiterapp.Pedido.Pedido;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,11 +17,13 @@ public class Cliente implements Serializable {
     private Long id;
     @Column(nullable = false)
     private String nome;
+    @Column(unique=true)
     private String email;
     private String cpf;
     @Column(nullable = false, updatable = false)
     private LocalDateTime dataCriação;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos = new ArrayList<>();
 

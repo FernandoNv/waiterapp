@@ -29,7 +29,7 @@ public class CardapioService {
         return cardapio;
     }
 
-    public Cardapio retornaCardapioById(Long idCardapio){
+    public Cardapio retornaCardapioById(Long idCardapio) throws ObjectNotFoundException{
         Optional<Cardapio> cardapio = cardapioRepository.findById(idCardapio);
         return cardapio.orElseThrow(() -> new ObjectNotFoundException("Objeto nao encontrado! ID: " + idCardapio + ", Tipo: " + Cardapio.class.getName()));
     }
@@ -40,12 +40,12 @@ public class CardapioService {
         return cardapioRepository.save(cardapio);
     }
 
-    public Cardapio atualizaCardapio(Cardapio cardapio){
+    public Cardapio atualizaCardapio(Cardapio cardapio) throws ObjectNotFoundException{
         retornaCardapioById(cardapio.getId());
         return cardapioRepository.save(cardapio);
     }
 
-    public void apagaCardapio(Long idCardapio) throws DataIntegrityViolationException{
+    public void apagaCardapio(Long idCardapio) throws DataIntegrityViolationException, ObjectNotFoundException{
         retornaCardapioById(idCardapio);
         try{
             cardapioRepository.deleteById(idCardapio);

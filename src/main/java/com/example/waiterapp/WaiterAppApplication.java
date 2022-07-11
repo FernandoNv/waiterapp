@@ -234,7 +234,7 @@ public class WaiterAppApplication implements CommandLineRunner {
         }
         PedidoRepository.save(pedido);
 
-        ItemPedido item_pedido = new ItemPedido(pedido, item, quantidade, preco);
+        ItemPedido item_pedido = new ItemPedido(pedido, item, quantidade);
 
         ItemPedidoRepository.save(item_pedido);
 

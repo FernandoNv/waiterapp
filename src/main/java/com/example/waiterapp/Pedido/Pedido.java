@@ -154,7 +154,7 @@ public class Pedido implements Serializable {
     }
 
     public void adicionarItemExtra(Item item){
-        new ItemPedido(this, item, 1, item.getPreco());
+        new ItemPedido(this, item, 1);
     }
 
     public void chamarGarcom(){

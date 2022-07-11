@@ -1,5 +1,6 @@
 package com.example.waiterapp.Cardapio;
 
+import com.example.waiterapp.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,20 +21,24 @@ public class CardapioController {
         this.cardapioService = cardapioService;
     }
 
-    @GetMapping
+    @GetMapping(produces = "application/json")
     public ResponseEntity<List<Cardapio>> listaCardapios() {
         List<Cardapio> cardapios = cardapioService.listaCardapios();
         return ResponseEntity.ok().body(cardapios);
     }
 
-    @GetMapping(value = "/{idCardapio}")
+    @GetMapping(value = "/{idCardapio}", produces = "application/json")
     public ResponseEntity<Cardapio> retornaCardapioById(@PathVariable Long idCardapio){
-        Cardapio cardapio = cardapioService.retornaCardapioById(idCardapio);
+        try {
+            Cardapio cardapio = cardapioService.retornaCardapioById(idCardapio);
 
-        return ResponseEntity.ok().body(cardapio);
+            return ResponseEntity.ok().body(cardapio);
+        }catch (ObjectNotFoundException e){
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    @PostMapping
+    @PostMapping(consumes = "application/json")
     public ResponseEntity<Void> insereCardapio(@Valid @RequestBody CardapioDTO cardapioDTO){
         Cardapio cardapio = cardapioService.transformarDTO(cardapioDTO);
         cardapio = cardapioService.insereCardapio(cardapio);
@@ -47,14 +52,17 @@ public class CardapioController {
         return ResponseEntity.created(uri).build();
     }
 
-    @PutMapping(value = "/{idCardapio}")
+    @PutMapping(value = "/{idCardapio}", consumes = "application/json")
     public ResponseEntity<Void> atualizaCardapio(@Valid @RequestBody CardapioDTO cardapioDTO, @PathVariable Long idCardapio){
         Cardapio cardapio = cardapioService.transformarDTO(cardapioDTO);
 
         cardapio.setId(idCardapio);
-        cardapioService.atualizaCardapio(cardapio);
-
-        return ResponseEntity.ok().build();
+        try{
+            cardapioService.atualizaCardapio(cardapio);
+            return ResponseEntity.ok().build();
+        }catch (ObjectNotFoundException e){
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping(value = "/{idCardapio}")

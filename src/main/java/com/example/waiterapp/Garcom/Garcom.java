@@ -1,6 +1,7 @@
 package com.example.waiterapp.Garcom;
 
 import com.example.waiterapp.Pedido.Pedido;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,6 +20,7 @@ public class Garcom implements Serializable {
     private LocalDateTime dataCriacao;
     private String cpf;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "garcom")
     private List<Pedido> pedidos = new ArrayList<>();
 

@@ -31,7 +31,7 @@ public class ItemPedido implements Serializable {
         id.setItem(item);
         id.setPedido(pedido);
         this.quantidade = quantidade;
-        this.preco = this.getPrecoItemPedido();
+        this.preco = item.getPreco();
     }
 
     public void setPedido(Pedido pedido){
@@ -42,10 +42,11 @@ public class ItemPedido implements Serializable {
         id.setItem(item);
     }
 
-    public Double getPrecoItemPedido(){
+    public Double getPrecoItemTotalPedido(){
         return quantidade * id.getItem().getPreco();
     }
 
+    @JsonIgnore
     public Pedido getPedido(){
         return id.getPedido();
     }

@@ -15,6 +15,7 @@ public class ItemPedidoPK implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_item")
     private Item item;
+
     @ManyToOne
     @JoinColumn(name = "id_pedido")
     private Pedido pedido;
