@@ -2,6 +2,7 @@ package com.example.waiterapp.Cardapio;
 
 import com.example.waiterapp.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -67,8 +68,13 @@ public class CardapioController {
 
     @DeleteMapping(value = "/{idCardapio}")
     public ResponseEntity<Void> deleteCardapio(@PathVariable Long idCardapio){
-        cardapioService.apagaCardapio(idCardapio);
+        try{
+            cardapioService.apagaCardapio(idCardapio);
 
-        return ResponseEntity.noContent().build();
+            return ResponseEntity.noContent().build();
+            
+        }catch (DataIntegrityViolationException | ObjectNotFoundException e){
+            return ResponseEntity.notFound().build();
+        }
     }
 }

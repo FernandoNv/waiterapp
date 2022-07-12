@@ -1,6 +1,8 @@
 package com.example.waiterapp.Pedido;
 
+import com.example.waiterapp.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -59,8 +61,13 @@ public class PedidoController {
 
     @DeleteMapping(value = "/{idPedido}")
     public ResponseEntity<Void> deletePedido(@PathVariable Long idPedido){
-        pedidoService.apagaPedido(idPedido);
+        try{
+            pedidoService.apagaPedido(idPedido);
 
-        return ResponseEntity.noContent().build();
+            return ResponseEntity.noContent().build();
+            
+        }catch (DataIntegrityViolationException | ObjectNotFoundException e){
+            return ResponseEntity.notFound().build();
+        }
     }
 }
