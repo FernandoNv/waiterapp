@@ -13,7 +13,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping({"/pedidos"})
+@RequestMapping(value = {"/pedidos"})
 public class PedidoController {
     
     private PedidoService pedidoService;
@@ -23,22 +23,22 @@ public class PedidoController {
         this.pedidoService = pedidoService;
     }
 
-    @GetMapping(produces = "application/json")
-    public ResponseEntity<List<Pedido>> listaPedidos() {
-        List<Pedido> pedidos = pedidoService.listaPedidos();
+//    @GetMapping(produces = "application/json")
+//    public ResponseEntity<List<Pedido>> listaPedidos() {
+//        List<Pedido> pedidos = pedidoService.listaPedidos();
+//        return ResponseEntity.ok().body(pedidos);
+//    }
+
+    @GetMapping(value = "clientes/{idCliente}", produces = "application/json")
+    public ResponseEntity<List<Pedido>> retornaPedidoByIdCliente(@PathVariable Long idCliente){
+        List<Pedido> pedidos = pedidoService.listaPedidosByIdCliente(idCliente);
         return ResponseEntity.ok().body(pedidos);
     }
 
-    @GetMapping(value = "/{idPedido}", produces = "application/json")
-    public ResponseEntity<Pedido> retornaPedidoById(@PathVariable Long idPedido){
-        Pedido pedido = pedidoService.retornaPedidoById(idPedido);
-
-        return ResponseEntity.ok().body(pedido);
-    }
-
     @PostMapping(consumes = "application/json")
-    public ResponseEntity<Void> inserePedido(@Valid @RequestBody PedidoDTO pedidoDTO){
-        Pedido pedido = pedidoService.transformarDTO(pedidoDTO);
+    public ResponseEntity<Pedido> inserePedido(@Valid @RequestBody Pedido pedido){
+        System.out.print("Pedido enviado pelo request - ");
+        System.out.println(pedido);
         pedido = pedidoService.inserePedido(pedido);
 
         URI uri = ServletUriComponentsBuilder
@@ -47,14 +47,12 @@ public class PedidoController {
                 .buildAndExpand(pedido.getId())
                 .toUri();
 
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity.created(uri).body(pedido);
     }
 
     @PutMapping(value = "/{idPedido}", consumes = "application/json")
-    public ResponseEntity<Void> atualizaPedido(@Valid @RequestBody PedidoDTO pedidoDTO, @PathVariable Long idCardapio){
-        Pedido pedido = pedidoService.transformarDTO(pedidoDTO);
-
-        pedido.setId(idCardapio);
+    public ResponseEntity<Void> atualizaPedido(@Valid @RequestBody Pedido pedido, @PathVariable Long idPedido){
+        pedido.setId(idPedido);
         pedidoService.atualizaPedido(pedido);
 
         return ResponseEntity.ok().build();

@@ -6,7 +6,6 @@ import com.example.waiterapp.Item.Item;
 import com.example.waiterapp.ItemPedido.ItemPedido;
 import com.example.waiterapp.Pagamento.Pagamento;
 import com.example.waiterapp.enums.Estado;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -22,7 +21,6 @@ public class Pedido implements Serializable {
     private Long id;
 
     @Column(nullable = false, updatable = false)
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataCriacao;
 
     private Estado estado;
@@ -122,7 +120,7 @@ public class Pedido implements Serializable {
     }
 
     public void setPrecoTotal() {
-        this.precoTotal = this.items.stream().map(ItemPedido::getPreco).reduce(0D, Double::sum);
+        this.precoTotal = this.items.stream().map(ItemPedido::getSubTotal).reduce(0D, Double::sum);
     }
 
     public Integer getNotaAtendimento() {

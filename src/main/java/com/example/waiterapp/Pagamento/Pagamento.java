@@ -2,6 +2,7 @@ package com.example.waiterapp.Pagamento;
 
 import com.example.waiterapp.Pedido.Pedido;
 import com.example.waiterapp.enums.Estado;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,6 +22,7 @@ public abstract class Pagamento implements Serializable {
     @Column(nullable = false, updatable = false)
     private LocalDateTime dataPagamento;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "pagamento")
     private Pedido pedido;
 
@@ -55,6 +57,14 @@ public abstract class Pagamento implements Serializable {
 
     public void setDataPagamento(LocalDateTime dataPagamento) {
         this.dataPagamento = dataPagamento;
+    }
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
 
     @Override
