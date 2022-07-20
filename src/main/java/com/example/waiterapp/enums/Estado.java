@@ -4,8 +4,8 @@ public enum Estado {
     PENDENTE,
     PAGO,
     CANCELADO,
-    EMANDAMENTO,
-    EMPREPARACAO,
+    EM_ANDAMENTO,
+    EM_PREPARACAO,
     CONCLUIDO,
     FECHADO
 }

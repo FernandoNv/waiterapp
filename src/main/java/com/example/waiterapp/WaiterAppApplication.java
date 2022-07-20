@@ -100,14 +100,14 @@ public class WaiterAppApplication implements CommandLineRunner {
         itemRepository.saveAll(Arrays.asList(bebida1, bebida2, prato1, prato2));
         cardapioRepository.saveAll(Arrays.asList(cardapio1, cardapio2));
 
-        Cliente cliente1 = new Cliente(null, "Fernando", null, null, LocalDateTime.now());
-        Cliente cliente2 = new Cliente(null, "Juliana", null, null, LocalDateTime.now());
+        Cliente cliente1 = new Cliente(null, "Fernando", null, "123.123.123-12", LocalDateTime.now());
+        Cliente cliente2 = new Cliente(null, "Juliana", null, "000.000.000-01", LocalDateTime.now());
 
         Garcom garcom1 = new Garcom(null, "Garcom 1", LocalDateTime.now(), null);
         Garcom garcom2 = new Garcom(null, "Garcom 2", LocalDateTime.now(), null);
 
         //public Pedido(Long id, LocalDateTime dataCriacao, Estado estado, Double precoTotal, Integer notaAtendimento, Integer notaPedido, String opcoesExtras) {
-        Pedido pedido1 = new Pedido(null, LocalDateTime.now(), Estado.EMPREPARACAO, null, 10, 10, null);
+        Pedido pedido1 = new Pedido(null, LocalDateTime.now(), Estado.EM_PREPARACAO, null, 10, 10, null);
         pedido1.setCliente(cliente1);
         pedido1.setGarcom(garcom1);
 

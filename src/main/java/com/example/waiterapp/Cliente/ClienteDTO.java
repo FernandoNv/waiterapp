@@ -13,7 +13,7 @@ public class ClienteDTO implements Serializable {
     private String nome;
     private String email;
     private String cpf;
-    private LocalDateTime dataCriação;
+    private LocalDateTime dataCriacao;
     private List<Pedido> pedidos = new ArrayList<>();
 
     public ClienteDTO(){
@@ -24,7 +24,7 @@ public class ClienteDTO implements Serializable {
         this.nome = cliente.getNome();
         this.email = cliente.getEmail();
         this.cpf = cliente.getCpf();
-        this.dataCriação = cliente.getDataCriação();
+        this.dataCriacao = cliente.getDataCriacao();
         this.pedidos = cliente.getPedidos();
     }
 
@@ -68,12 +68,12 @@ public class ClienteDTO implements Serializable {
         this.cpf = cpf;
     }
 
-    public LocalDateTime getDataCriação() {
-        return dataCriação;
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
     }
 
-    public void setDataCriação(LocalDateTime dataCriação) {
-        this.dataCriação = dataCriação;
+    public void setdataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 
 }

@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping({"/clientes"})
 public class ClienteController {
@@ -35,8 +36,21 @@ public class ClienteController {
         return ResponseEntity.ok().body(cliente);
     }
 
-    @PostMapping(consumes = "application/json")
-    public ResponseEntity<Void> insereCliente(@Valid @RequestBody ClienteDTO clienteDTO){
+    @PostMapping(value = "/cpf",consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Cliente> retornaClienteByCpf(@Valid @RequestBody ClienteDTO clienteDTO){
+        Cliente cliente = clienteService.retornaClienteByCpf(clienteDTO.getCpf());
+
+        return ResponseEntity.ok().body(cliente);
+    }
+
+    @PostMapping(consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Cliente> insereCliente(@Valid @RequestBody ClienteDTO clienteDTO){
+        if(clienteDTO.getCpf() != null){
+            Cliente cliente = clienteService.retornaClienteByCpf(clienteDTO.getCpf());
+            if(cliente != null){
+                return ResponseEntity.ok().body(cliente);
+            }
+        }
         Cliente cliente = clienteService.transformarDTO(clienteDTO);
         cliente = clienteService.insereCliente(cliente);
 
@@ -46,7 +60,7 @@ public class ClienteController {
                 .buildAndExpand(cliente.getId())
                 .toUri();
 
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity.created(uri).body(cliente);
     }
 
     @PutMapping(value = "/{idCliente}", consumes = "application/json")

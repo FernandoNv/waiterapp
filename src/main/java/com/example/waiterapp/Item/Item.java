@@ -2,10 +2,7 @@ package com.example.waiterapp.Item;
 
 import com.example.waiterapp.Cardapio.Cardapio;
 import com.example.waiterapp.ItemPedido.ItemPedido;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.io.Serializable;

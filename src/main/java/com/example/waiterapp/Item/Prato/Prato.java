@@ -2,8 +2,6 @@ package com.example.waiterapp.Item.Prato;
 
 import com.example.waiterapp.Ingrediente.Ingrediente;
 import com.example.waiterapp.Item.Item;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

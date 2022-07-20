@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClienteService {
@@ -20,7 +21,13 @@ public class ClienteService {
     }
 
     public Cliente transformarDTO(ClienteDTO clienteDTO){
-        Cliente cliente = new Cliente(clienteDTO.getId(), clienteDTO.getNome(), clienteDTO.getEmail(), clienteDTO.getCpf(), clienteDTO.getDataCriação());
+        Cliente cliente = new Cliente(
+                clienteDTO.getId(),
+                clienteDTO.getNome(),
+                clienteDTO.getEmail(),
+                clienteDTO.getCpf(),
+                clienteDTO.getDataCriacao()
+        );
         cliente.setPedidos(clienteDTO.getPedidos());
         return cliente;
     }
@@ -30,7 +37,7 @@ public class ClienteService {
     }
 
     public Cliente retornaClienteById(Long idCliente) {
-        return clienteRepository.findById(idCliente).orElseThrow(() -> new ObjectNotFoundException("Objeto nao encontrado! ID: " + idCliente + ", Tipo: " + Cliente.class.getName()));
+        return clienteRepository.findById(idCliente).orElse(null);
     }
 
     public List<Pedido> retornaPedidosCliente(Long idCliente){
@@ -45,7 +52,7 @@ public class ClienteService {
 
     public Cliente insereCliente(Cliente cliente) {
         cliente.setId(null);
-        cliente.setDataCriação(LocalDateTime.now());
+        cliente.setDataCriacao(LocalDateTime.now());
         return clienteRepository.save(cliente);
     }
 
@@ -60,5 +67,9 @@ public class ClienteService {
         }catch(DataIntegrityViolationException e){
             throw new DataIntegrityViolationException("Não é possível excluir esse cliente");
         }
+    }
+
+    public Cliente retornaClienteByCpf(String cpf) {
+        return clienteRepository.findByCpf(cpf).orElse(null);
     }
 }

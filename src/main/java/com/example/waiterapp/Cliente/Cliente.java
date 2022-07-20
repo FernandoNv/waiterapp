@@ -19,9 +19,10 @@ public class Cliente implements Serializable {
     private String nome;
     @Column(unique=true)
     private String email;
+    @Column(unique=true)
     private String cpf;
     @Column(nullable = false, updatable = false)
-    private LocalDateTime dataCriação;
+    private LocalDateTime dataCriacao;
 
     @JsonIgnore
     @OneToMany(mappedBy = "cliente")
@@ -30,12 +31,12 @@ public class Cliente implements Serializable {
     public Cliente() {
     }
 
-    public Cliente(Long id, String nome, String email, String cpf, LocalDateTime dataCriação) {
+    public Cliente(Long id, String nome, String email, String cpf, LocalDateTime dataCriacao) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.cpf = cpf;
-        this.dataCriação = dataCriação;
+        this.dataCriacao = dataCriacao;
     }
 
     public List<Pedido> getPedidos() {
@@ -78,12 +79,12 @@ public class Cliente implements Serializable {
         this.cpf = cpf;
     }
 
-    public LocalDateTime getDataCriação() {
-        return dataCriação;
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
     }
 
-    public void setDataCriação(LocalDateTime dataCriação) {
-        this.dataCriação = dataCriação;
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 
     @Override
@@ -106,7 +107,7 @@ public class Cliente implements Serializable {
                 ", nome='" + nome + '\'' +
                 ", email='" + email + '\'' +
                 ", cpf='" + cpf + '\'' +
-                ", dataCriação=" + dataCriação +
+                ", dataCriação=" + dataCriacao +
                 '}';
     }
 }
