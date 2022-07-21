@@ -13,7 +13,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = {"/pedidos"})
+@RequestMapping(value = {"/api/pedidos"})
 public class PedidoController {
     
     private PedidoService pedidoService;

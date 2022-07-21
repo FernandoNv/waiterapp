@@ -12,7 +12,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping({"/cardapios"})
+@RequestMapping({"/api/cardapios"})
 public class CardapioController {
 
     private CardapioService cardapioService;

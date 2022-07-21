@@ -108,7 +108,7 @@ public class WaiterAppApplication implements CommandLineRunner {
         Garcom garcom2 = new Garcom(null, "Garcom 2", LocalDateTime.now(), null);
 
         //public Pedido(Long id, LocalDateTime dataCriacao, Estado estado, Double precoTotal, Integer notaAtendimento, Integer notaPedido, String opcoesExtras) {
-        Pedido pedido1 = new Pedido(null, LocalDateTime.now(), Estado.EM_PREPARACAO, null, 10, 10, null);
+        Pedido pedido1 = new Pedido(null, LocalDateTime.now(), Estado.FECHADO, null, 10, 10, null);
         pedido1.setCliente(cliente1);
         pedido1.setGarcom(garcom1);
 
