@@ -23,11 +23,17 @@ public class PedidoController {
         this.pedidoService = pedidoService;
     }
 
-//    @GetMapping(produces = "application/json")
-//    public ResponseEntity<List<Pedido>> listaPedidos() {
-//        List<Pedido> pedidos = pedidoService.listaPedidos();
-//        return ResponseEntity.ok().body(pedidos);
-//    }
+    @GetMapping(produces = "application/json")
+    public ResponseEntity<List<Pedido>> listaPedidos() {
+        List<Pedido> pedidos = pedidoService.listaPedidos();
+        return ResponseEntity.ok().body(pedidos);
+    }
+
+    @GetMapping(value = "{idPedido}", produces = "application/json")
+    public ResponseEntity<Pedido> retornaPedidoById(@PathVariable Long idPedido) {
+        Pedido pedido = pedidoService.retornaPedidoById(idPedido);
+        return ResponseEntity.ok().body(pedido);
+    }
 
     @GetMapping(value = "clientes/{idCliente}", produces = "application/json")
     public ResponseEntity<List<Pedido>> retornaPedidoByIdCliente(@PathVariable Long idCliente){

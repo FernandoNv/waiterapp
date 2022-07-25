@@ -29,7 +29,7 @@ public class Pedido implements Serializable {
     private Integer notaPedido;
     private String opcoesExtras;
 
-    @OneToMany(mappedBy = "id.pedido")
+    @OneToMany(mappedBy = "id.pedido", cascade = CascadeType.REMOVE)
     private Set<ItemPedido> items = new HashSet<>();
 
     @ManyToOne

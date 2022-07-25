@@ -44,6 +44,10 @@ public class PedidoService {
         return pedidoRepository.findallByIdCliente(idCliente);
     }
 
+    public List<Pedido> listaPedidos(){
+        return pedidoRepository.findAll();
+    }
+
     public Pedido retornaPedidoById(Long idPedido){
         if(pedidoRepository.findById(idPedido).isPresent()){
             return pedidoRepository.findById(idPedido).get();
